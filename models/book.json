@@ -1,14 +1,31 @@
 {
-  "type": "book",
   "fields": {
-    "title": {
-      "type": "string",
-      "repeatable": false,
-      "required": true
-    },
     "author": {
       "type": "string",
       "repeatable": true,
+      "required": true
+    },
+    "editor": {
+      "type": "string",
+      "repeatable": true
+    },
+    "language": {
+      "type": "string",
+      "repeatable": true
+    },
+    "published": {
+      "type": "date"
+    },
+    "seeAlso": {
+      "type": "rel:book",
+      "repeatable": true
+    },
+    "subject": {
+      "type": "string",
+      "repeatable": true
+    },
+    "title": {
+      "type": "string",
       "required": true
     }
   }
