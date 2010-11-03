@@ -1,12 +1,10 @@
 function (newDoc, oldDoc, userCtx, secObj) {
-  var m = require("lib/model");
-  for (var model in m.models) {
-    if (newDoc.type == model.type) {
-      for (var field in model.fields) {
-        if (field.required) {
-          throw({forbidden: 'The "' + field.name + '" field is required.'});
-        }
-      }
+  var model = this.models[newDoc.type];
+  var key, field;
+  for (key in model.fields) {
+    field = model.fields[key];
+    if (field.required && newDoc[key] === undefined) {
+      throw({forbidden: 'The "' + key + '" field is required.'});
     }
   }
 }
