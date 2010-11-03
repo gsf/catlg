@@ -1,8 +1,10 @@
-{
-  "name": "catlg",
-  "version": "0.0.1",
-  "description": "Catlg is a catalog.",
-  "paths": {
-    "attachments": "static"
+{ 
+  "name": "catlg", 
+  "version": "0.0.1", 
+  "description": "Catlg is a catalog.", 
+  "paths": { 
+    "attachments": [ 
+      "index.html"
+    ]
   }
 }
