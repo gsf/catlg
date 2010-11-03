@@ -3,6 +3,9 @@
   "version": "0.0.1", 
   "description": "Catlg is a catalog.", 
   "paths": { 
+    "properties": [
+      "validate_doc_update.js"
+    ],
     "attachments": [ 
       "index.html"
     ]
