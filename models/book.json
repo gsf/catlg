@@ -1,0 +1,10 @@
+{
+  "type": "book",
+  "fields": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true
+    }
+  ]
+}

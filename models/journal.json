@@ -1,0 +1,16 @@
+{
+  "type": "journal",
+  "fields": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "frequency",
+      "type": "string",
+      "required": false
+    }
+  ]
+}
+
