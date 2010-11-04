@@ -1,13 +1,15 @@
 {
-  "fields": {
-    "title": {
+  "fields": [
+    {
+      "name": "title", 
       "type": "string",
       "required": true
     },
-    "frequency": {
+    {
+      "name": "frequency", 
       "type": "string",
       "required": false
     }
-  }
+  ]
 }
 

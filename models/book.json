@@ -1,32 +1,39 @@
 {
-  "fields": {
-    "author": {
+  "fields": [
+    {
+      "name": "title", 
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "author",
       "type": "string",
       "repeatable": true,
       "required": true
     },
-    "editor": {
-      "type": "string",
-      "repeatable": true
-    },
-    "language": {
-      "type": "string",
-      "repeatable": true
-    },
-    "published": {
+    {
+      "name": "published", 
       "type": "date"
     },
-    "seeAlso": {
+    {
+      "name": "editor", 
+      "type": "string",
+      "repeatable": true
+    },
+    {
+      "name": "language", 
+      "type": "string",
+      "repeatable": true
+    },
+    {
+      "name": "subject", 
+      "type": "string",
+      "repeatable": true
+    },
+    {
+      "name": "seeAlso", 
       "type": "rel:book",
       "repeatable": true
-    },
-    "subject": {
-      "type": "string",
-      "repeatable": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
     }
-  }
+  ]
 }
