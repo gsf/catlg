@@ -28,6 +28,24 @@
           }
         });
       });
+      module("Couch");
+      test("create doc", function () {
+        stop();
+        var doc = {
+          type: "book",
+          title: "bob",
+          author: ["andy"]
+        };
+        $.couch.db("catlg").saveDoc(doc, {
+          success: function (resp) {
+            ok(true, 'doc ' + resp.id + ' created');
+          },
+          error: function (stat, error, reason) {
+            ok(false, reason);
+          }
+        });
+        start();
+      });
     });
   </script>
 </html>
