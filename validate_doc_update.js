@@ -18,7 +18,7 @@ function (newDoc, oldDoc, userCtx, secObj) {
     }
     // Already tested for required, so if field isn't defined skip the rest
     if (newDoc[field.name] === undefined) {
-      return;
+      continue;
     }
 
     // XXX: constructor results in "Error: case_clause {[]}"
@@ -26,7 +26,7 @@ function (newDoc, oldDoc, userCtx, secObj) {
 
     // Got the idea for eval(uneval(x)) from 
     // http://wiki.apache.org/couchdb/Introduction_to_CouchDB_views
-    if (field.repeatable && !(eval(uneval(newDoc.author)) instanceof Array)) {
+    if (field.repeatable && !(eval(uneval(newDoc[field.name])) instanceof Array)) {
       throw({forbidden: 'The "' + field.name + '" field must be an array.'});
     }
   }
