@@ -4,6 +4,10 @@ function (newDoc, oldDoc, userCtx, secObj) {
   //if (!newDoc.timestamp) {
   //  throw({forbidden: 'A timestamp is required.'});
   //}
+  // Short circuit for delete
+  if (newDoc._deleted) {
+    return;
+  }
 
   // Validate against model based on type
   var model = this.models[newDoc.type];

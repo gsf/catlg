@@ -1,0 +1,16 @@
+{
+  "goodbook": {
+    "type": "book",
+    "title": "bob",
+    "author": [
+      "sue"
+    ]
+  },
+  "typeless": {
+    "title": "bob"
+  },
+  "noModelMatch": {
+    "type": "blarg",
+    "title": "bob"
+  }
+}

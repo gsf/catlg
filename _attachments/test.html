@@ -28,23 +28,75 @@
           }
         });
       });
-      module("Couch");
-      test("create doc", function () {
+      module("Models");
+      var docs;
+      test("create and delete good book", function () {
         stop();
-        var doc = {
-          type: "book",
-          title: "bob",
-          author: ["andy"]
-        };
-        $.couch.db("catlg").saveDoc(doc, {
+        $.getJSON('test/docs.json', function (data) {
+          docs = data;
+          var doc = docs.goodbook;
+          $.couch.db('catlg').saveDoc(doc, {
+            success: function (resp) {
+              ok(true, 'doc ' + resp.id + ' created');
+              doc = {
+                _id: resp.id,
+                _rev: resp.rev
+              };
+              $.couch.db('catlg').removeDoc(doc, {
+                success: function (resp) {
+                  ok(true, 'doc ' + resp.id + ' deleted');
+                  start();
+                },
+                error: function (stat, error, reason) {
+                  ok(false, reason);
+                  start();
+                }
+              });
+            },
+            error: function (stat, error, reason) {
+              ok(false, reason);
+              start();
+            }
+          });
+        });
+      });
+      test("fail to create typeless doc", function () {
+        stop();
+        var doc = docs.typeless;
+        $.couch.db('catlg').saveDoc(doc, {
           success: function (resp) {
-            ok(true, 'doc ' + resp.id + ' created');
+            ok(false, "Oh no, doc created");
+            doc = {
+              _id: resp.id,
+              _rev: resp.rev
+            };
+            $.couch.db('catlg').removeDoc(doc);
+            start();
           },
           error: function (stat, error, reason) {
-            ok(false, reason);
-          }
+            equals(reason, 'The "type" field must match a model.', 'Success!');
+            start();
+          },
         });
-        start();
+      });
+      test("fail to create doc with type that matches no models", function () {
+        stop();
+        var doc = docs.noModelMatch;
+        $.couch.db('catlg').saveDoc(doc, {
+          success: function (resp) {
+            ok(false, "Oh no, doc created");
+            doc = {
+              _id: resp.id,
+              _rev: resp.rev
+            };
+            $.couch.db('catlg').removeDoc(doc);
+            start();
+          },
+          error: function (stat, error, reason) {
+            equals(reason, 'The "type" field must match a model.', 'Success!');
+            start();
+          },
+        });
       });
     });
   </script>
