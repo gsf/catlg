@@ -1,1 +1,19 @@
-Catlg is a catalog.
+Catlg is a catalog. Use it to manage and display collections of things.
+
+Catlg is a CouchApp (http://couchapp.org). To install it, get CouchDB 
+up and running on your machine, cd into the Catlg directory, and run 
+the following command:
+
+    $ couchapp push . http://127.0.0.1:5984/catlg
+
+Add a .couchapprc file to the Catlg directory with the following in it 
+and all you have to do is `couchapp push`:
+
+    {
+      "env": {
+        "default": {
+          "db": "http://127.0.0.1:5984/catlg/"
+        }
+      }
+    }
+
