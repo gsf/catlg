@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Catlg Tests</title>
-    <link rel="stylesheet" href="style/qunit.css" />
+    <link rel="stylesheet" href="style/qunit.css">
   </head>
   <body>
     <h1 id="qunit-header">Catlg tests</h1>
@@ -16,86 +17,146 @@
   <script src="/_utils/script/jquery.couch.js"></script>
   <script src="script/qunit.js"></script>
   <script>
-    $(document).ready(function () {
-      module("Index");
-      test("exists", function () {
-        stop();
-        $.ajax({
-          url: 'index.html',
-          complete: function(xhr) {
-            equals(xhr.status, 200, "index.html status");
+    $(document).ready(function() {
+      module('Setup');
+      var db, docs;
+      asyncTest('check db', function() {
+        db = $.couch.db('catlg');
+        db.info({
+          success: function(resp) {
+            equals(resp.db_name, 'catlg', 'db info');
+            start();
+          },
+          error: function(stat, error, reason) {
+            ok(false, reason);
             start();
           }
         });
       });
-      module("Models");
-      var docs;
-      test("create and delete good book", function () {
-        stop();
-        $.getJSON('test/docs.json', function (data) {
+      asyncTest('get docs', function() {
+        $.getJSON('test/docs.json', function(data) {
           docs = data;
-          var doc = docs.goodbook;
-          $.couch.db('catlg').saveDoc(doc, {
-            success: function (resp) {
-              ok(true, 'doc ' + resp.id + ' created');
-              doc = {
-                _id: resp.id,
-                _rev: resp.rev
-              };
-              $.couch.db('catlg').removeDoc(doc, {
-                success: function (resp) {
-                  ok(true, 'doc ' + resp.id + ' deleted');
-                  start();
-                },
-                error: function (stat, error, reason) {
-                  ok(false, reason);
-                  start();
-                }
-              });
-            },
-            error: function (stat, error, reason) {
-              ok(false, reason);
-              start();
-            }
-          });
+          ok(true, 'fine test');
+          start();
         });
       });
-      test("fail to create typeless doc", function () {
-        stop();
+      module('Index');
+      asyncTest('exists', function() {
+        $.ajax({
+          url: 'index.html',
+          complete: function(xhr) {
+            equals(xhr.status, 200, 'index.html status');
+            start();
+          }
+        });
+      });
+      module('Models');
+      asyncTest('create and delete good book', function() {
+        var doc = docs.goodbook;
+        db.saveDoc(doc, {
+          success: function(resp) {
+            ok(true, 'doc ' + resp.id + ' created');
+            doc = {
+              _id: resp.id,
+              _rev: resp.rev
+            };
+            db.removeDoc(doc, {
+              success: function(resp) {
+                ok(true, 'doc ' + resp.id + ' deleted');
+                start();
+              },
+              error: function(stat, error, reason) {
+                ok(false, reason);
+                start();
+              }
+            });
+          },
+          error: function(stat, error, reason) {
+            ok(false, reason);
+            start();
+          }
+        });
+      });
+      asyncTest('fail to create typeless doc', function() {
         var doc = docs.typeless;
-        $.couch.db('catlg').saveDoc(doc, {
-          success: function (resp) {
-            ok(false, "Oh no, doc created");
+        db.saveDoc(doc, {
+          success: function(resp) {
+            ok(false, 'Oh no, doc created');
             doc = {
               _id: resp.id,
               _rev: resp.rev
             };
-            $.couch.db('catlg').removeDoc(doc);
+            db.removeDoc(doc);
             start();
           },
-          error: function (stat, error, reason) {
+          error: function(stat, error, reason) {
+            equals(reason, 'The "type" field must match a model.', 'Success!');
+            start();
+          }
+        });
+      });
+      asyncTest('fail to create doc with type that matches no models', function() {
+        var doc = docs.noModelMatch;
+        db.saveDoc(doc, {
+          success: function(resp) {
+            ok(false, 'Oh no, doc created');
+            doc = {
+              _id: resp.id,
+              _rev: resp.rev
+            };
+            db.removeDoc(doc);
+            start();
+          },
+          error: function(stat, error, reason) {
             equals(reason, 'The "type" field must match a model.', 'Success!');
             start();
           },
         });
       });
-      test("fail to create doc with type that matches no models", function () {
-        stop();
-        var doc = docs.noModelMatch;
-        $.couch.db('catlg').saveDoc(doc, {
-          success: function (resp) {
-            ok(false, "Oh no, doc created");
-            doc = {
-              _id: resp.id,
-              _rev: resp.rev
-            };
-            $.couch.db('catlg').removeDoc(doc);
+      module('Views');
+      asyncTest('save bulk', function() {
+        db.bulkSave(docs.bulk, {
+          success: function(resp) {
+            docs.bulk.docs = [];
+            var newDoc;
+            $.each(resp, function(i, doc) {
+              newDoc = {
+                _id: doc.id,
+                _rev: doc.rev
+              };
+              docs.bulk.docs.push(newDoc);
+            });
+            ok(true, 'saved bulk docs');
             start();
           },
-          error: function (stat, error, reason) {
-            equals(reason, 'The "type" field must match a model.', 'Success!');
+          error: function(stat, error, reason) {
+            ok(false, reason);
+            start();
+          }
+        });
+      });
+      asyncTest('by title', function() {
+        db.view('catlg/byTitle', {
+          success: function(resp) {
+            equals(resp.rows[0].key, "L'Étranger", 'check view by title');
             start();
           },
+          error: function(stat, error, reason) {
+            ok(false, reason);
+            start();
+          }
+        });
+      });
+      asyncTest('remove bulk', function() {
+        db.bulkRemove(docs.bulk, {
+          success: function(resp) {
+            ok(true, 'removed bulk docs');
+            start();
+          },
+          error: function(stat, error, reason) {
+            ok(false, reason);
+            start();
+          }
         });
       });
     });
