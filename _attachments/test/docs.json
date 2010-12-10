@@ -35,6 +35,15 @@
         "author": [
           "George, Henry"
         ]
+      },
+      {
+        "type": "book",
+        "title": "CouchDB: The Definitive Guide",
+        "author": [
+          "Anderson, Chris J",
+          "Lehnhardt, Jan",
+          "Slater, Noah"
+        ]
       }
     ]
   }

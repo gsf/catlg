@@ -135,10 +135,22 @@
           }
         });
       });
-      asyncTest('by title', function() {
-        db.view('catlg/byTitle', {
+      asyncTest('title', function() {
+        db.view('catlg/title', {
           success: function(resp) {
-            equals(resp.rows[0].key, "L'Étranger", 'check view by title');
+            equals(resp.rows[1].key, "L'Étranger");
+            start();
+          },
+          error: function(stat, error, reason) {
+            ok(false, reason);
+            start();
+          }
+        });
+      });
+      asyncTest('author', function() {
+        db.view('catlg/author', {
+          success: function(resp) {
+            equals(resp.rows[1].key, "Camus, Albert");
             start();
           },
           error: function(stat, error, reason) {
