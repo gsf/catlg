@@ -15,13 +15,14 @@
   </body>
   <script src="/_utils/script/jquery.js"></script>
   <script src="/_utils/script/jquery.couch.js"></script>
+  <script src="script/catlg.js"></script>
   <script src="script/qunit.js"></script>
   <script>
     $(document).ready(function() {
       module('Setup');
       var db, docs;
       asyncTest('check db', function() {
-        db = $.couch.db('catlg');
+        db = catlg.db('catlg');
         db.info({
           success: function(resp) {
             equals(resp.db_name, 'catlg', 'db info');
@@ -53,13 +54,11 @@
       module('Models');
       asyncTest('create and delete good book', function() {
         var doc = docs.goodbook;
-        db.saveDoc(doc, {
+        db.createDoc(doc, {
           success: function(resp) {
             ok(true, 'doc ' + resp.id + ' created');
-            doc = {
-              _id: resp.id,
-              _rev: resp.rev
-            };
+            doc._id = resp.id;
+            doc._rev = resp.rev;
             db.removeDoc(doc, {
               success: function(resp) {
                 ok(true, 'doc ' + resp.id + ' deleted');
@@ -79,7 +78,7 @@
       });
       asyncTest('fail to create typeless doc', function() {
         var doc = docs.typeless;
-        db.saveDoc(doc, {
+        db.createDoc(doc, {
           success: function(resp) {
             ok(false, 'Oh no, doc created');
             doc = {
@@ -97,7 +96,7 @@
       });
       asyncTest('fail to create doc with type that matches no models', function() {
         var doc = docs.noModelMatch;
-        db.saveDoc(doc, {
+        db.createDoc(doc, {
           success: function(resp) {
             ok(false, 'Oh no, doc created');
             doc = {
@@ -115,18 +114,20 @@
       });
       module('Views');
       asyncTest('save bulk', function() {
-        db.bulkSave(docs.bulk, {
+        db.bulkCreate(docs.bulk, {
           success: function(resp) {
             docs.bulk.docs = [];
             var newDoc;
+            var docsStr = ''
             $.each(resp, function(i, doc) {
               newDoc = {
                 _id: doc.id,
                 _rev: doc.rev
               };
               docs.bulk.docs.push(newDoc);
+              docsStr += ' ' + doc.id;
             });
-            ok(true, 'saved bulk docs');
+            ok(true, 'saved docs' + docsStr);
             start();
           },
           error: function(stat, error, reason) {
