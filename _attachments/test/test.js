@@ -25,7 +25,6 @@ $(document).ready(function() {
     });
   });
   asyncTest('replicate for test db', function() {
-    // TODO: only works for local, non-secured DBs
     $.couch.replicate(dbName, testDbName, {
       success: function(resp) {
         ok(true, 'test db replicated');
