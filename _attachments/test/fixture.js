@@ -1,4 +1,4 @@
-{
+var fixture = {
   "goodbook": {
     "type": "book",
     "title": "bob",
@@ -47,4 +47,4 @@
       }
     ]
   }
-}
+};
