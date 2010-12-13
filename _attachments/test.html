@@ -20,7 +20,7 @@
   <script>
     $(document).ready(function() {
       module('Setup');
-      var db, docs;
+      var db, fixture;
       asyncTest('check db', function() {
         db = catlg.db('catlg');
         db.info({
@@ -34,9 +34,9 @@
           }
         });
       });
-      asyncTest('get test docs', function() {
-        $.getJSON('test/docs.json', function(data) {
-          docs = data;
+      asyncTest('get fixture', function() {
+        $.getJSON('fixture.json', function(data) {
+          fixture = data;
           ok(true, 'fine test');
           start();
         });
@@ -53,7 +53,7 @@
       });
       module('Models');
       asyncTest('create and delete good book', function() {
-        var doc = docs.goodbook;
+        var doc = fixture.goodbook;
         db.createDoc(doc, {
           success: function(resp) {
             ok(true, 'doc ' + resp.id + ' created');
@@ -77,7 +77,7 @@
         });
       });
       asyncTest('fail to create typeless doc', function() {
-        var doc = docs.typeless;
+        var doc = fixture.typeless;
         db.createDoc(doc, {
           success: function(resp) {
             ok(false, 'Oh no, doc created');
@@ -95,7 +95,7 @@
         });
       });
       asyncTest('fail to create doc with type that matches no models', function() {
-        var doc = docs.noModelMatch;
+        var doc = fixture.noModelMatch;
         db.createDoc(doc, {
           success: function(resp) {
             ok(false, 'Oh no, doc created');
@@ -114,9 +114,9 @@
       });
       module('Views');
       asyncTest('save bulk', function() {
-        db.bulkCreate(docs.bulk, {
+        db.bulkCreate(fixture.bulk, {
           success: function(resp) {
-            docs.bulk.docs = [];
+            fixture.bulk.docs = [];
             var newDoc;
             var docsStr = ''
             $.each(resp, function(i, doc) {
@@ -124,7 +124,7 @@
                 _id: doc.id,
                 _rev: doc.rev
               };
-              docs.bulk.docs.push(newDoc);
+              fixture.bulk.docs.push(newDoc);
               docsStr += ' ' + doc.id;
             });
             ok(true, 'saved docs' + docsStr);
@@ -161,7 +161,7 @@
         });
       });
       asyncTest('remove bulk', function() {
-        db.bulkRemove(docs.bulk, {
+        db.bulkRemove(fixture.bulk, {
           success: function(resp) {
             ok(true, 'removed bulk docs');
             start();
