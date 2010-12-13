@@ -3,20 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Catlg Tests</title>
-    <link rel="stylesheet" href="../style/qunit.css">
+    <link rel="stylesheet" href="../style/jasmine.css">
+    <script src="/_utils/script/jquery.js"></script>
+    <script src="/_utils/script/jquery.couch.js"></script>
+    <script src="../script/jasmine.js"></script>
+    <script src="../script/jasmine-html.js"></script>
+    <script src="../script/catlg.js"></script>
+    <script src="fixture.js"></script>
+    <script src="spec.js"></script>
   </head>
   <body>
-    <h1 id="qunit-header">Catlg tests</h1>
-    <h2 id="qunit-banner"></h2>
-    <div id="qunit-testrunner-toolbar"></div>
-    <h2 id="qunit-userAgent"></h2>
-    <ol id="qunit-tests"></ol>
-    <div id="qunit-fixture">test markup, will be hidden</div>
+    <script> 
+      jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+      jasmine.getEnv().execute();
+    </script> 
   </body>
-  <script src="/_utils/script/jquery.js"></script>
-  <script src="/_utils/script/jquery.couch.js"></script>
-  <script src="../script/qunit.js"></script>
-  <script src="../script/catlg.js"></script>
-  <script src="fixture.js"></script>
-  <script src="test.js"></script>
 </html>
