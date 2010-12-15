@@ -44,7 +44,7 @@ var dbReset = function(cb) {
 $(document).ready(function() {
   module('Index');
   test('exists', function() {
-    stop(1000);
+    stop(5000);
     $.ajax({
       url: 'index.html',
       complete: function(xhr) {
@@ -55,7 +55,7 @@ $(document).ready(function() {
   });
   module('Models');
   test('create and delete book', function() {
-    stop(1000);
+    stop(5000);
     var doc = fixture.goodbook;
     dbCheck(function() {
       db.createDoc(doc, {
@@ -82,7 +82,7 @@ $(document).ready(function() {
     });
   });
   test('fail to create typeless doc', function() {
-    stop(1000);
+    stop(5000);
     var doc = fixture.typeless;
     dbReset(function() {
       db.createDoc(doc, {
@@ -103,7 +103,7 @@ $(document).ready(function() {
     });
   });
   test('fail to create doc with type that matches no models', function() {
-    stop(1000);
+    stop(5000);
     var doc = fixture.noModelMatch;
     dbCheck(function() {
       db.createDoc(doc, {
@@ -125,7 +125,7 @@ $(document).ready(function() {
   });
   module('Views');
   test('title', function() {
-    stop(1000);
+    stop(5000);
     dbReset(function() {
       db.bulkCreate(fixture.bulk, {
         success: function(resp) {
@@ -148,7 +148,7 @@ $(document).ready(function() {
     });
   });
   test('author', function() {
-    stop(1000);
+    stop(5000);
     // TODO: use a key with view to avoid dbReset
     dbReset(function() {
       db.bulkCreate(fixture.bulk, {
@@ -173,7 +173,7 @@ $(document).ready(function() {
   });
   //module('Generated IDs');
   //test('bulk create generates incremented IDs', function() {
-  //  stop(1000);
+  //  stop(5000);
   //  dbReset(function() {
   //    db.bulkCreate(fixture.bulk, {
   //      success: function(resp) {
