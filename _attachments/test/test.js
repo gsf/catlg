@@ -139,12 +139,17 @@ $(document).ready(function() {
               start();
             }
           });
+        },
+        error: function(stat, error, reason) {
+          ok(false, reason);
+          start();
         }
       });
     });
   });
   test('author', function() {
     stop(1000);
+    // TODO: use a key with view to avoid dbReset
     dbReset(function() {
       db.bulkCreate(fixture.bulk, {
         success: function(resp) {
@@ -158,8 +163,33 @@ $(document).ready(function() {
               start();
             }
           });
+        },
+        error: function(stat, error, reason) {
+          ok(false, reason);
+          start();
         }
       });
     });
   });
+  //module('Generated IDs');
+  //test('bulk create generates incremented IDs', function() {
+  //  stop(1000);
+  //  dbReset(function() {
+  //    db.bulkCreate(fixture.bulk, {
+  //      success: function(resp) {
+  //        var idArray = [];
+  //        for (var i in resp) {
+  //          var doc = resp[i];
+  //          idArray.push(doc.id);
+  //        }
+  //        equal(idArray, 'bob');
+  //        start();
+  //      },
+  //      error: function(stat, error, reason) {
+  //        ok(false, reason);
+  //        start();
+  //      }
+  //    });
+  //  });
+  //});
 });
