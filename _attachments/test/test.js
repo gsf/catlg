@@ -171,25 +171,34 @@ $(document).ready(function() {
       });
     });
   });
-  //module('Generated IDs');
-  //test('bulk create generates incremented IDs', function() {
-  //  stop(5000);
-  //  dbReset(function() {
-  //    db.bulkCreate(fixture.bulk, {
-  //      success: function(resp) {
-  //        var idArray = [];
-  //        for (var i in resp) {
-  //          var doc = resp[i];
-  //          idArray.push(doc.id);
-  //        }
-  //        equal(idArray, 'bob');
-  //        start();
-  //      },
-  //      error: function(stat, error, reason) {
-  //        ok(false, reason);
-  //        start();
-  //      }
-  //    });
-  //  });
-  //});
+  module('IDs');
+  test('check ID functions', 2, function() {
+    var id = catlg.genId();
+    var decId = catlg.h2d(id);
+    ok(decId < catlg.ID_UPPER_BOUND && decId > 0, decId + ' is a positive number less than the upper bound');
+    var num = 823434235;
+    equal(catlg.d2h(num), '31149bfb', 'decimal to hex converter works');
+  });
+  test('bulk create generates incremented IDs', 3, function() {
+    stop(5000);
+    dbCheck(function() {
+      db.bulkCreate(fixture.bulk, {
+        success: function(resp) {
+          var idArray = [];
+          for (var i in resp) {
+            var doc = resp[i];
+            idArray.push(doc.id);
+          }
+          equal(catlg.h2d(idArray[0]) + 1, catlg.h2d(idArray[1]));
+          equal(catlg.h2d(idArray[1]) + 1, catlg.h2d(idArray[2]));
+          equal(catlg.h2d(idArray[2]) + 1, catlg.h2d(idArray[3]));
+          start();
+        },
+        error: function(stat, error, reason) {
+          ok(false, reason);
+          start();
+        }
+      });
+    });
+  });
 });

@@ -1,60 +1,56 @@
-var catlg = {};
+var catlg = {
+  ID_UPPER_BOUND: 4294967295,
+  ID_LENGTH: 8,
 
-catlg.ID_LENGTH = 4;
+  // decimal to hex converter
+  d2h: function(dec) {
+    return dec.toString(16);
+  },
 
-catlg._base62 = {};
+  // hex to decimal converter
+  h2d: function(hex) {
+    return parseInt(hex, 16);
+  },
 
-// base62 ordered according to Unicode Collation Algorithm
-catlg._base62.str = '0123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ';
-
-// choose a random base62 digit
-catlg._base62.choice = function() {
-  return catlg._base62.str[Math.floor(Math.random()*62)]
-};
-
-// increment base62 ID
-// TODO: compare speed with full conversion to base10 for incrementing
-// (e.g., 'Ab3a' => '11120310') 
-catlg._base62.inc = function(id) {
-  var digit = id.length - 1;
-  var padding = '';
-  var increment = function(digit, padding) {
-    var base10 = catlg._base62.str.indexOf(id[digit]);
-    if (base10 < 61) {
-      var incremented = catlg._base62.str[base10 + 1];
-      return id.substr(0, digit) + incremented + padding;
-    } 
-    // TODO: case when all digits flip ('ZZZZ' => '0000')
-    digit = digit - 1;
-    padding = padding + '0';
-    increment(digit, padding);
-  };
-  return increment(digit, padding);
-};
-
-// generate base62 ID
-catlg._base62.id = function(length) {
-  length = length || catlg.ID_LENGTH;
-  var id = '';
-  for (var i=0; i<length; i++) {
-    id += catlg._base62.choice();
-  }
-  return id;
-}
-
-catlg.db = function(dbName) {
-  var db = $.couch.db(dbName, {attachPrevRev: true});
-  db.createDoc = function(doc, options) {
-    doc._id = catlg._base62.id();
-    db.saveDoc(doc, options);
-  };
-  db.bulkCreate = function(docs, options) {
-    var id = catlg._base62.id();
-    for (var i in docs.docs) {
-      docs.docs[i]._id = id;
-      id = catlg._base62.inc(id);
+  // pad ID with zeroes
+  pad: function(id) {
+    while (id.length < catlg.ID_LENGTH) {
+      id = '0' + id;
     }
-    db.bulkSave(docs, options);
-  };
-  return db;
+    return id;
+  },
+
+  // generate 8-digit hex ID
+  genId: function() {
+    var id = catlg.d2h(Math.floor(Math.random()*catlg.ID_UPPER_BOUND));
+    return catlg.pad(id);
+  },
+
+  // increment ID
+  incId: function(id) {
+    var dec = catlg.h2d(id);
+    dec++;
+    if (dec > catlg.ID_UPPER_BOUND) {
+      dec = 0;
+    }
+    return catlg.pad(catlg.d2h(dec));
+  },
+
+  // set versioning on db and set some new methods
+  db: function(dbName) {
+    var db = $.couch.db(dbName, {attachPrevRev: true});
+    db.createDoc = function(doc, options) {
+      doc._id = catlg.genId();
+      db.saveDoc(doc, options);
+    };
+    db.bulkCreate = function(docs, options) {
+      var id = catlg.genId();
+      for (var i in docs.docs) {
+        docs.docs[i]._id = id;
+        id = catlg.incId(id);
+      }
+      db.bulkSave(docs, options);
+    };
+    return db;
+  }
 };
