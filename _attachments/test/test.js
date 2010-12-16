@@ -45,6 +45,7 @@ var dbReset = function() {
     }
   });
 };
+
 $(document).ready(function() {
   module('Index');
   test('exists', function() {
@@ -57,6 +58,7 @@ $(document).ready(function() {
       }
     });
   });
+
   module('Models', {
     setup: function() {
       stop(5000);
@@ -126,6 +128,7 @@ $(document).ready(function() {
       },
     });
   });
+
   module('Views', {
     setup: function() {
       stop(5000);
