@@ -15,7 +15,7 @@ function (newDoc, oldDoc, userCtx, secObj) {
     throw({forbidden: 'The "type" field must match a model.'});
   }
   var key, field;
-  for (i in model.fields) {
+  for (var i in model.fields) {
     field = model.fields[i];
     if (field.required && !newDoc[field.name]) {
       throw({forbidden: 'The "' + field.name + '" field is required.'});
