@@ -5,12 +5,13 @@
     {{>scripts}}
   </head>
   <body>
-  <script>
-    db = catlg.db('{{db}}');
-    db.info({
-      success: function(resp) {
-        document.write(JSON.stringify(resp));
-      }
-    });
-  </script>
-</body>
+    <script>
+      db = catlg.db('{{db}}');
+      db.info({
+        success: function(resp) {
+          document.write(JSON.stringify(resp));
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -10,4 +10,4 @@ function(head, req) {
     return mustache.to_html(ddoc.templates.index, view, 
       ddoc.templates.partials);
   });
-};
+}
