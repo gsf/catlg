@@ -5,6 +5,7 @@
     {{>scripts}}
   </head>
   <body>
+    {{#doc}}
     <p>{{type}}</p>
     <p>{{title}}</p>
     <ul>
@@ -12,5 +13,9 @@
       <li>{{.}}</li>
       {{/author}}
     </ul>
+    {{/doc}}
+    {{^doc}}
+    <p>No doc.</p>
+    {{/doc}}
   </body>
 </html>
