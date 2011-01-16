@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Catlg</title>
+    {{>scripts}}
+  </head>
+  <body>
+    <p>{{type}}</p>
+    <p>{{title}}</p>
+    <ul>
+      {{#author}}
+      <li>{{.}}</li>
+      {{/author}}
+    </ul>
+  </body>
+</html>
