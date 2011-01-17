@@ -5,13 +5,28 @@
     {{>scripts}}
   </head>
   <body>
-    <article>
-    {{#doc}}
+    <!--<p>{{req}}</p>-->
+  {{#doc}}
+  <article>
   {{{formatted}}}
-    {{/doc}}
-    {{^doc}}
-  <p>No doc.</p>
-    {{/doc}}
-    </article>
+  </article>
+  {{/doc}}
+  {{^doc}}
+  <div id="docs"></div>
+  <script>
+    var db = catlg.db('{{db}}');
+    db.view('catlg/title', {
+      success: function(resp) {
+        //$('#docs').append('<p>' + JSON.stringify(resp) + '</p>');
+        resp.rows.forEach(function(row) {
+          $('#docs').append('<p>' + row.key + '</p>');
+        });
+      },
+      error: function(stat, error, reason) {
+        $('#docs').text('No docs found: ' + reason);
+      }
+    });
+  </script>
+  {{/doc}}
   </body>
 </html>
