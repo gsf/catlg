@@ -3,7 +3,8 @@
     {
       "name": "title", 
       "type": "string",
-      "required": true
+      "required": true,
+      "header": "true"
     },
     {
       "name": "author",
