@@ -2,16 +2,68 @@
 <html>
   <head>
     <title>Catlg</title>
+    <link rel="stylesheet" href="/{{db}}/_design/catlg/style/catlg.css">
     {{>scripts}}
   </head>
   <body>
 {{#doc}}
     <article>
-      <form>
+      <div class="edit-toggle" id="edit-toggle"><a href="#">edit</a></div>
+      <form id="edit-form" method="get">
         {{{formatted}}}
-        <input type="submit">
+        <div class="input">
+          <input type="submit">
+        </div>
       </form>
     </article>
+    <script>
+      var globalForm;
+      $('#edit-toggle').click(function() {
+        $('.display').animate({
+          height: 'toggle'
+        }, 1000);
+        $('.input').animate({
+          height: 'toggle'
+        }, 1000);
+      });
+      //alert($('#title').attr('separator'));
+      $('#edit-form').validate({
+        submitHandler: function(form) {
+          var doc = {
+            _id: '{{_id}}',
+            _rev: '{{_rev}}',
+            type: '{{type}}'
+          };
+          //console.log($(form));
+          $.each($(form).serializeArray(), function(i, field) {
+            if (field.value) {
+              var $field = $('[name="' + field.name + '"]');
+              if ($field.hasClass('repeatable')) {
+                doc[field.name] = [];
+                var sep = $field.attr('separator') || ',';
+                var values = field.value.split(sep);
+                $.each(values, function(i, val) {
+                  doc[field.name].push($.trim(val));
+                });
+              } else {
+                doc[field.name] = field.value;
+              }
+            }
+          });
+          console.log(doc);
+          var db = catlg.db('{{db}}');
+          db.saveDoc(doc, {
+            success: function(resp) {
+              console.log(resp);
+              // TODO reload document somehow
+            },
+            error: function(stat, error, reason) {
+              console.log('error: ' + reason);
+            }
+          });
+        }
+      });
+    </script>
   {{/doc}}
 {{^doc}}
     <div id="docs"></div>

@@ -1,0 +1,9 @@
+h1 {
+  margin-top: 0;
+}
+div.input {
+  display: none;
+}
+div.edit-toggle {
+  float: right;
+}

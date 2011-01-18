@@ -10,7 +10,8 @@
       "name": "author",
       "type": "string",
       "repeatable": true,
-      "required": true
+      "required": true,
+      "separator": ";"
     },
     {
       "name": "published", 
