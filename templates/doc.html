@@ -54,8 +54,8 @@
           var db = catlg.db('{{db}}');
           db.saveDoc(doc, {
             success: function(resp) {
-              console.log(resp);
-              // TODO reload document somehow
+              //console.log(resp);
+              window.location.reload(true);
             },
             error: function(stat, error, reason) {
               console.log('error: ' + reason);
@@ -73,7 +73,7 @@
         success: function(resp) {
           //$('#docs').append('<p>' + JSON.stringify(resp) + '</p>');
           resp.rows.forEach(function(row) {
-            $('#docs').append('<article><h1>' + row.key + '</h1></article>');
+            $('#docs').append('<article><h1><a href="' + row.id + '">' + row.key + '</a></h1></article>');
           });
         },
         error: function(stat, error, reason) {
