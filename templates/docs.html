@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Catlg</title>
+    <link rel="stylesheet" href="/{{db}}/_design/catlg/style/catlg.css">
+    {{>scripts}}
+  </head>
+  <body>
+    <div id="docs"></div>
+    <script>
+      var db = catlg.db('{{db}}');
+      db.view('catlg/title', {
+        success: function(resp) {
+          //$('#docs').append('<p>' + JSON.stringify(resp) + '</p>');
+          resp.rows.forEach(function(row) {
+            $('#docs').append('<article><h1><a href="' + row.id + '">' + row.key + '</a></h1></article>');
+          });
+        },
+        error: function(stat, error, reason) {
+          $('#docs').text('No docs found: ' + reason);
+        }
+      });
+    </script>
+  </body>
+</html>
+
