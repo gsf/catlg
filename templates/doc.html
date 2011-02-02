@@ -6,9 +6,15 @@
     {{>scripts}}
   </head>
   <body>
+    <div id="admin">
+      <div id="admin-actions">
+        <a href="#edit">edit</a>
+        <a href="#add">add</a>
+        <a href="#delete">delete</a>
+      </div>
+    </div>
 {{#doc}}
     <article>
-      <div class="edit-toggle" id="edit-toggle"><a href="#">edit</a></div>
       <form id="edit-form" method="get">
         {{{formatted}}}
         <div class="input">

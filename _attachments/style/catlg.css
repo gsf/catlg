@@ -1,9 +1,27 @@
+body {
+  font-family: sans;
+  margin: 0;
+}
 h1 {
   margin-top: 0;
 }
 div.input {
   display: none;
 }
-div.edit-toggle {
+#admin {
+  background-color: #323;
+  overflow: auto;
+  padding: 5px;
+}
+#admin a {
+  color: #ddd;
+  text-decoration: none;
+  border: 1px solid #323;
+  padding: 1px;
+}
+#admin a:hover {
+  border: 1px dotted #ddd;
+}
+#admin-actions {
   float: right;
 }
