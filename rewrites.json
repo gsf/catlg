@@ -1,0 +1,26 @@
+[
+  {
+    "from": "",
+    "to": "_show/docs/"
+  },
+  {
+    "from": "_db/*", 
+    "to": "../../*"
+  },
+  {
+    "from": "_ddoc", 
+    "to": "."
+  },
+  {
+    "from" : "script/*",
+    "to" : "script/*"
+  },
+  {
+    "from" : "style/*",
+    "to" : "style/*"
+  },
+  {
+    "from": "*",
+    "to": "_show/docs/*"
+  }
+]
