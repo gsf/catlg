@@ -3,7 +3,6 @@
   <head>
     <title>Catlg</title>
     <link rel="stylesheet" href="/{{db}}/_design/catlg/style/catlg.css">
-    {{>scripts}}
   </head>
   <body>
     <div id="admin">
@@ -22,6 +21,8 @@
         </div>
       </form>
     </article>
+    {{/doc}}
+    {{>scripts}}
     <script>
       var globalForm;
       $('#edit-toggle').click(function() {
@@ -70,6 +71,5 @@
         }
       });
     </script>
-  {{/doc}}
   </body>
 </html>
