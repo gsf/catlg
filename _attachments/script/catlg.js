@@ -54,3 +54,7 @@ var catlg = {
     return db;
   }
 };
+
+$.getJSON('_ddoc', function(data) {
+  catlg.ddoc = data;
+});
