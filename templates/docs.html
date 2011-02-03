@@ -2,18 +2,26 @@
 <html>
   <head>
     <title>Catlg</title>
-    <link rel="stylesheet" href="/{{db}}/_design/catlg/style/catlg.css">
-    {{>scripts}}
+    {{>styles}}
   </head>
   <body>
+    <div id="admin">
+      <div id="admin-actions">
+        <a href="#add">add</a>
+      </div>
+    </div>
+    <header>
+      <h1 id="logo">Catlg</h1>
+    </header>
     <div id="docs"></div>
+    {{>scripts}}
     <script>
       var db = catlg.db('{{db}}');
       db.view('catlg/title', {
         success: function(resp) {
           //$('#docs').append('<p>' + JSON.stringify(resp) + '</p>');
           resp.rows.forEach(function(row) {
-            $('#docs').append('<article><h1><a href="' + row.id + '">' + row.key + '</a></h1></article>');
+            $('#docs').append('<article><h1><a href="'+escape(row.id)+'">'+row.key+'</a></h1></article>');
           });
         },
         error: function(stat, error, reason) {

@@ -37,3 +37,11 @@ div.input {
   top: 40px;
   width: 800px;
 }
+#logo {
+  font-family: 'Maiden Orange', arial, serif;
+  font-size: 3em;
+  padding: 10px 0 0 0;
+}
+#logo a {
+  text-decoration: none;
+}

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Catlg</title>
-    <link rel="stylesheet" href="/{{db}}/_design/catlg/style/catlg.css">
+    {{>styles}}
   </head>
   <body>
     <div id="admin">
@@ -12,6 +12,9 @@
         <a href="#delete">delete</a>
       </div>
     </div>
+    <header>
+      <h1 id="logo"><a href="/">Catlg</a></h1>
+    </header>
 {{#doc}}
     <article>
       <form id="edit-form" method="get">
