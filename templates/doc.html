@@ -24,15 +24,28 @@
     {{/doc}}
     {{>scripts}}
     <script>
-      var globalForm;
-      $('#edit-toggle').click(function() {
-        $('.display').animate({
-          height: 'toggle'
-        }, 1000);
-        $('.input').animate({
-          height: 'toggle'
-        }, 1000);
+      $(function(){
+        $(window).bind('hashchange', function(e) {
+          // TODO this is super ugly -- event listeners?
+          var exports = {};
+          eval(catlg.ddoc.lib.mustache);
+          var url = $.bbq.getState('url');
+          var hashObj = $.deparam.fragment();
+          $('body').append('<div id="box">'+exports.to_html(catlg.ddoc.templates.partials.add)+'</div>');
+          box = $('#box');
+          box.fadeIn('slow', function() {
+          });
+        });
       });
+      //var globalForm;
+      //$('#edit-toggle').click(function() {
+      //  $('.display').animate({
+      //    height: 'toggle'
+      //  }, 1000);
+      //  $('.input').animate({
+      //    height: 'toggle'
+      //  }, 1000);
+      //});
       //alert($('#title').attr('separator'));
       $('#edit-form').validate({
         submitHandler: function(form) {
