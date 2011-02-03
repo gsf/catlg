@@ -1,5 +1,6 @@
 {
   "name": "Catlg",
   "description": "Catlg is a catalog.",
+  "index" : "_rewrite/",
   "version": "0.0.1"
 }
