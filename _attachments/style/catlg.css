@@ -1,4 +1,5 @@
 body {
+  background-color: #eee;
   font-family: sans;
   margin: 0;
 }
@@ -24,4 +25,15 @@ div.input {
 }
 #admin-actions {
   float: right;
+}
+#box {
+  background-color: #fff;
+  border: 1px solid #bbb;
+  display: none;
+  left: 50%;
+  margin-left: -400px;
+  padding: 5px;
+  position: absolute;
+  top: 40px;
+  width: 800px;
 }
