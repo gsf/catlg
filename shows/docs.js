@@ -8,6 +8,7 @@ function(doc, req) {
     var template;
     var view = {
       db: ddoc.settings.db,
+      name: ddoc.settings.name,
       req: JSON.stringify(req)
     };
     if (req.id) { 

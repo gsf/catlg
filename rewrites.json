@@ -12,6 +12,10 @@
     "to": "."
   },
   {
+    "from" : "img/*",
+    "to" : "img/*"
+  },
+  {
     "from" : "script/*",
     "to" : "script/*"
   },

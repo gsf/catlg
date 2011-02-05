@@ -1,5 +1,5 @@
 body {
-  background-color: #eee;
+  background-color: #323;
   font-family: sans;
   margin: 0;
 }
@@ -9,8 +9,17 @@ h1 {
 div.input {
   display: none;
 }
+footer {
+  border-top: 2px solid #222;
+  overflow: auto;
+  padding: 5px;
+}
+header {
+  background-color: #eee;
+  padding: 5px;
+}
 #admin {
-  background-color: #323;
+  border-bottom: 2px solid #222;
   overflow: auto;
   padding: 5px;
 }
@@ -37,11 +46,21 @@ div.input {
   top: 40px;
   width: 800px;
 }
+#content {
+  background-color: #eee;
+}
+#docs {
+  min-height: 80%;
+}
 #logo {
-  font-family: 'Maiden Orange', arial, serif;
-  font-size: 3em;
-  padding: 10px 0 0 0;
+  font-family: serif;
+  font-size: 48px;
+  letter-spacing: 2px;
+  margin: 0;
 }
 #logo a {
   text-decoration: none;
+}
+#courtesy {
+  float: right;
 }

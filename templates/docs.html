@@ -5,15 +5,20 @@
     {{>styles}}
   </head>
   <body>
-    <div id="admin">
+    <nav id="admin">
       <div id="admin-actions">
         <a href="#add">add</a>
       </div>
-    </div>
+    </nav>
     <header>
-      <h1 id="logo">Catlg</h1>
+      <h1 id="logo">{{name}}</h1>
     </header>
-    <div id="docs"></div>
+    <section id="content">
+      <div id="docs">&nbsp;</div>
+    </section>
+    <footer>
+      <div id="courtesy"><img src="img/catlg.png"></div>
+    </footer>
     {{>scripts}}
     <script>
       var db = catlg.db('{{db}}');
