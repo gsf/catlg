@@ -13,9 +13,7 @@
     <header>
       <h1 id="logo">{{name}}</h1>
     </header>
-    <section id="content">
-      <div id="docs">&nbsp;</div>
-    </section>
+    <section id="content"></section>
     <footer>
       <div id="courtesy"><img src="img/catlg.png"></div>
     </footer>
@@ -24,13 +22,17 @@
       var db = catlg.db('{{db}}');
       db.view('catlg/title', {
         success: function(resp) {
-          //$('#docs').append('<p>' + JSON.stringify(resp) + '</p>');
-          resp.rows.forEach(function(row) {
-            $('#docs').append('<article><h1><a href="'+escape(row.id)+'">'+row.key+'</a></h1></article>');
-          });
+          //$('#content').append('<p>' + JSON.stringify(resp) + '</p>');
+          if (resp.length) {
+            resp.rows.forEach(function(row) {
+              $('#content').append('<article><h1><a href="'+escape(row.id)+'">'+row.key+'</a></h1></article>');
+            });
+          } else {
+          $('#content').html('<article id="welcome"><h1>A place for docs</h1><p>This would be a place for your documents. See the link in the top-right corner? Go ahead and add some to see them here.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a tristique enim. Donec id enim ante. Curabitur tincidunt sapien sit amet ipsum viverra lobortis. Quisque et lacinia justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer imperdiet tellus non turpis fermentum non suscipit nulla volutpat. Phasellus rutrum dui ipsum, sed sagittis ipsum. Donec in augue ac purus rutrum convallis non sed neque. Sed lobortis lacus vitae quam fermentum at hendrerit massa vehicula. Curabitur dignissim tortor a sem condimentum nec volutpat justo lacinia. Sed mollis venenatis enim, pretium viverra mi aliquet non. Duis auctor arcu eget ante interdum facilisis vitae id massa. Donec a enim lorem. Nunc dignissim nisl vel erat adipiscing mattis aliquet nulla varius. Aliquam fringilla nulla at enim varius nec aliquam est faucibus. Etiam hendrerit odio a neque vestibulum ornare. Etiam nibh sapien, suscipit vitae gravida id, fermentum ut elit.</p><p>Donec pharetra faucibus est vitae pharetra. Donec gravida auctor erat ut egestas. Fusce ac urna lorem. Etiam sodales scelerisque auctor. Cras fermentum dui ac tellus porttitor et feugiat mauris pharetra. Nullam nec nunc at quam ultrices tincidunt id at turpis. Vestibulum tempus nisi eu metus pellentesque mattis. Nam tristique, sem in rutrum porttitor, augue metus cursus nisl, ut posuere diam magna ut purus. Quisque auctor libero lorem. Fusce vehicula, nunc a viverra consequat, justo turpis egestas nunc, at consequat justo nulla quis metus. Donec sed metus leo. Aliquam ornare tincidunt pharetra. Proin eu ipsum eu nulla tempor consequat. Etiam imperdiet ultrices leo id mattis. Nulla dui nisl, lobortis ut bibendum vel, scelerisque eu purus. Donec dolor est, luctus laoreet tempus nec, facilisis eget mi. Sed mattis justo at metus viverra condimentum. Donec consequat dignissim erat a cursus.</p></article>');
+          }
         },
         error: function(stat, error, reason) {
-          $('#docs').text('No docs found: ' + reason);
+          $('#content').text('No docs found: ' + reason);
         }
       });
     </script>
