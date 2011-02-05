@@ -1,4 +1,5 @@
 function (newDoc, oldDoc, userCtx, secObj) {
+  var ddoc = this;
   // Applies to all docs
   // XXX: take care of in updates?
   //if (!newDoc.timestamp) {
@@ -10,7 +11,7 @@ function (newDoc, oldDoc, userCtx, secObj) {
   }
 
   // Validate against model based on type
-  var model = this.models[newDoc.type];
+  var model = ddoc.models[newDoc.type];
   if (!model) {
     throw({forbidden: 'The "type" field must match a model.'});
   }
