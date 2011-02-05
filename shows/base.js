@@ -14,8 +14,8 @@ function(doc, req) {
     if (req.id) { 
       view.doc = catlg.dress(doc, ddoc.models);
       template = ddoc.templates.doc;
-    } else { // all docs
-      template = ddoc.templates.docs;
+    } else { // base template
+      template = ddoc.templates.base;
     }
     return mustache.to_html(template, view, ddoc.templates.partials);
   });
