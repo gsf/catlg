@@ -11,7 +11,7 @@ function(doc, req) {
       name: ddoc.settings.name,
       req: JSON.stringify(req)
     };
-    if (req.id) { 
+    if (req.id) { // for html snapshots
       view.doc = catlg.dress(doc, ddoc.models);
       template = ddoc.templates.doc;
     } else { // base template
