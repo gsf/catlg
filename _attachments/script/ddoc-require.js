@@ -15,6 +15,16 @@
     }
   });
 
+  // grab db name
+  $.ajax({
+    url: '_db', 
+    async: false,
+    dataType: 'json',
+    success: function(data) {
+      global.dbName = data.db_name;
+    }
+  });
+
   var module = {
     moduleCache: {}
   };
