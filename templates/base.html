@@ -19,6 +19,7 @@
     </footer>
     {{>scripts}}
     <script>
+      var catlg = require('lib/catlg');
       var db = catlg.db('{{db}}');
       db.view('catlg/title', {
         success: function(resp) {
@@ -38,4 +39,3 @@
     </script>
   </body>
 </html>
-

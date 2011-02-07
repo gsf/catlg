@@ -1,11 +1,18 @@
 // Set up commonJS require() for ddoc libs in the browser
-// Cribbed from kanso mostly
+// Cribbed from https://github.com/caolan/kanso mostly
 
 (function() {
   var global = this;
 
-  $.getJSON('_ddoc', function(data) {
-    global.ddoc = data;
+  // Use lower-level ajax to set async to false 
+  // so ddoc is available on page load
+  $.ajax({
+    url: '_ddoc', 
+    async: false,
+    dataType: 'json',
+    success: function(data) {
+      global.ddoc = data;
+    }
   });
 
   var module = {
