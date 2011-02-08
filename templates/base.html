@@ -19,9 +19,6 @@
     </footer>
     {{>scripts}}
     <script>
-      var catlg = require('lib/catlg');
-      var mustache = require('lib/mustache');
-      var db = catlg.db();
       db.view('catlg/title', {
         success: function(resp) {
           //$('#content').append('<p>' + JSON.stringify(resp) + '</p>');
