@@ -35,7 +35,15 @@ header {
 #admin-actions {
   float: right;
 }
-#box {
+#content {
+  background-color: #ddd;
+  overflow: auto;
+  padding: 10px;
+}
+#courtesy {
+  float: right;
+}
+#lightbox {
   background-color: #fff;
   border: 1px solid #bbb;
   display: none;
@@ -45,14 +53,6 @@ header {
   position: absolute;
   top: 40px;
   width: 800px;
-}
-#content {
-  background-color: #ddd;
-  overflow: auto;
-  padding: 10px;
-}
-#courtesy {
-  float: right;
 }
 #logo {
   font-family: serif;
