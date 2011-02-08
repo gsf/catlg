@@ -7,7 +7,6 @@ function(doc, req) {
   provides('html', function() {
     var template;
     var view = {
-      db: ddoc.settings.db,
       name: ddoc.settings.name,
       req: JSON.stringify(req)
     };

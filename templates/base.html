@@ -7,7 +7,7 @@
   <body>
     <nav id="admin">
       <div id="admin-actions">
-        <a href="#add">add</a>
+        <a href="#" id="admin-add">add</a>
       </div>
     </nav>
     <header>
@@ -21,7 +21,7 @@
     <script>
       var catlg = require('lib/catlg');
       var mustache = require('lib/mustache');
-      var db = catlg.db(dbName);
+      var db = catlg.db();
       db.view('catlg/title', {
         success: function(resp) {
           //$('#content').append('<p>' + JSON.stringify(resp) + '</p>');
