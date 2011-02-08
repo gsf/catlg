@@ -1,3 +1,13 @@
-<div id="add">
-  Test add.
-</div>
+<section id="add">
+  <h1>Add</h1>
+  <p>
+  {{#models}}
+    <a href="#" class="model-select">{{.}}</a>
+  {{/models}}
+  </p>
+  <form>
+  </form>
+</section>
+<script>
+  $('#model-type').change(admin.modelForm);
+</script>

@@ -1,7 +1,8 @@
 var admin = require('events/admin');
 var welcome = require('events/welcome');
 
-$(function() {
-  welcome.titles();
-});
+// show titles on doc load
+welcome.titles();
+
+// admin stuff
 $('#admin-add').click(admin.add);
