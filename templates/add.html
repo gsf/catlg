@@ -1,13 +1,16 @@
 <section id="add">
   <h1>Add</h1>
   <p>
-  {{#models}}
+  {{#modelNames}}
     <a href="#" class="model-select">{{.}}</a>
-  {{/models}}
+  {{/modelNames}}
   </p>
-  <form>
+  <form id="add-form">
+    {{{modelForm}}}
+    <input type="submit">
   </form>
 </section>
 <script>
-  $('#model-type').change(admin.modelForm);
+  $('.model-select:first').addClass('selected');
+  $('.model-select').click(admin.modelSelect);
 </script>
