@@ -29,6 +29,6 @@
   },
   {
     "from": "*",
-    "to": "_show/docs/*"
+    "to": "_show/base/*"
   }
 ]
