@@ -4,7 +4,7 @@
 (function() {
   var global = this;
 
-  // Use lower-level ajax to set async to false 
+  // Use lower-level ajax function to set async to false 
   // so ddoc is available on page load
   $.ajax({
     url: '_ddoc', 
@@ -34,7 +34,7 @@
   };
 
   module.getPropertyPath = function(obj, p) {
-    // normalize to remove unessecary . and .. from paths
+    // normalize to remove unnecessary . and .. from paths
     var parts = module.normalizePath(p).split('/');
 
     // if path is empty, return the root object
