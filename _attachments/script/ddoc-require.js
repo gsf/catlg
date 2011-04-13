@@ -1,9 +1,7 @@
 // Set up commonJS require() for ddoc libs in the browser
 // Cribbed from https://github.com/caolan/kanso mostly
 
-(function() {
-  var global = this;
-
+(function(global) {
   // Use lower-level ajax function to set async to false 
   // so ddoc is available on page load
   $.ajax({
@@ -93,4 +91,4 @@
 
   global.require = module.createRequire('');
   global.module = module;
-})();
+})(this);
