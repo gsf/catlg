@@ -3,9 +3,22 @@
   <head>
     <title>{settings.name}: Admin</title>
     <link href="style/catlg.css" rel="stylesheet">
+    <script src="/_utils/script/jquery.js"></script>
+    <script src="/_utils/script/jquery.couch.js"></script>
+    <script src="script/jquery.ba-bbq.min.js"></script>
+    <script src="script/jquery.validate.min.js"></script>
+    <script src="script/ddoc-require.js"></script>
+    <script src="script/events.js"></script>
   </head>
   <body>
-    <header>Admin for {settings.name}</header>
+    <header>
+      <nav>
+        <a href="#docs">docs</a> |
+        <a href="#models">models</a> |
+        <a href="#templates">templates</a>
+      </nav>
+      <div>Admin for {settings.name}</div>
+    </header>
     <section id="content">
       <p>Welcome.</p>
     </section>

@@ -28,6 +28,12 @@ header {
   background-color: #767;
   padding: 5px;
 }
+header a {
+  color: #eee;
+}
+header nav {
+  float: right;
+}
 #admin {
   border-bottom: 2px solid #222;
   overflow: auto;
