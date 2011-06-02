@@ -4,6 +4,10 @@
     "to": "_show/base/"
   },
   {
+    "from": "admin",
+    "to": "_show/admin/"
+  },
+  {
     "from": "_db", 
     "to": "../../"
   },
