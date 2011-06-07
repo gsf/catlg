@@ -25,23 +25,26 @@ $(function() {
     var hash = e.fragment;
     var query = getQuery(hash);
     if (hash.indexOf('models') == 0) {
+      var names = Object.keys(ddoc.models).sort();
+      var view = {names: names};
       var model;
       if (query) {
         model = ddoc.models[query];
       }
       if (model) {
         var modelStr = JSON.stringify(model, null, '  ');
-        var view = {name: query, model:modelStr, lines:modelStr.split('\n').length};
+        view.selected = query;
+        view.model = modelStr;
+        view.lines = modelStr.split('\n').length;
         $('#content').append(whiskers.render(ddoc.templates.admin.model, view));
         $('#modelForm').submit(function() {
           //$.couch.
           return false;
         });
       } else {
-        var modelNames = Object.keys(ddoc.models).sort();
-        for (var i=0, len=modelNames.length; i < len; i++) {
-          $('#content').append('<p><a href="#models?'+modelNames[i]+'">'+modelNames[i]+'</a></p>');
-        }
+        view.selected = 'new';
+        $('#content').append(whiskers.render(ddoc.templates.admin.model, view));
+          //'<p><a href="#models?'+modelNames[i]+'">'+modelNames[i]+'</a></p>');
       }
     }
   });
