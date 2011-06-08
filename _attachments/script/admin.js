@@ -1,3 +1,4 @@
+var catlg = require('lib/catlg');
 var whiskers = require('lib/whiskers');
 
 var getQuery = function(str) {
@@ -37,15 +38,25 @@ $(function() {
         view.model = modelStr;
         view.lines = modelStr.split('\n').length;
         $('#content').append(whiskers.render(ddoc.templates.admin.model, view));
-        $('#modelForm').submit(function() {
-          //$.couch.
-          return false;
-        });
       } else {
         view.selected = 'new';
         $('#content').append(whiskers.render(ddoc.templates.admin.model, view));
-          //'<p><a href="#models?'+modelNames[i]+'">'+modelNames[i]+'</a></p>');
       }
+      $('#modelForm').submit(function() {
+        var name = $('input[name="name"]').val();
+        ddoc.models[name] = JSON.parse($('textarea').val());
+        catlg.db.saveDoc(ddoc, {
+          success: function(resp) {
+            catlg.db.openDoc(ddoc._id, {
+              success: function(newDdoc) {
+                ddoc = newDdoc;
+                alert('design doc saved');
+              }
+            });
+          }
+        });
+        return false;
+      });
     }
   });
 
