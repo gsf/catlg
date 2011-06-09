@@ -40,6 +40,7 @@ $(function() {
         $('#content').append(whiskers.render(ddoc.templates.admin.model, view));
       } else {
         view.selected = 'new';
+        view.model = '{\n  "fields": [\n    {\n      "required": true,\n      "type": "string",\n      "name": "title"\n    },\n    {\n      "required": false,\n      "type": "string",\n      "name": "author"\n    }\n  ]\n}';
         $('#content').append(whiskers.render(ddoc.templates.admin.model, view));
       }
       $('#modelForm').submit(function() {
