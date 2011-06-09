@@ -47,15 +47,19 @@ $(function() {
         ddoc.models[name] = JSON.parse($('textarea').val());
         catlg.db.saveDoc(ddoc, {
           success: function(resp) {
-            catlg.db.openDoc(ddoc._id, {
-              success: function(newDdoc) {
-                ddoc = newDdoc;
-                alert('design doc saved');
-              }
-            });
+            alert('design doc saved');
           }
         });
         return false;
+      });
+      $('input[name=delete]').click(function() {
+        var name = $('input[name=name]').val();
+        delete ddoc.models[name];
+        catlg.db.saveDoc(ddoc, {
+          success: function(resp) {
+            alert('design doc saved');
+          }
+        });
       });
     }
   });

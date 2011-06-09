@@ -1,11 +1,19 @@
+input, textarea {
+  border: 1px solid #777;
+}
+input[type=submit]:active, input[type=button]:active {
+  background-color: #bbb;
+}
+input[type=submit]:hover, input[type=button]:hover {
+  border: 1px solid #333;
+}
+input[type=text] {
+  font-family: monospace;
+}
 #modelList {
   float: right;
   margin: 0 0 0 20px;
 }
-input, textarea {
-  border: 1px solid #777;
-}
-input[type=text] {
-  font-family: monospace;
-  font-size: 14px;
+#modelForm div.submit {
+  margin: 0 0 1px 0;
 }
