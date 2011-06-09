@@ -47,7 +47,7 @@ $(function() {
         ddoc.models[name] = JSON.parse($('textarea').val());
         catlg.db.saveDoc(ddoc, {
           success: function(resp) {
-            alert('design doc saved');
+            location.href = 'admin#models?'+name;
           }
         });
         return false;
@@ -57,7 +57,7 @@ $(function() {
         delete ddoc.models[name];
         catlg.db.saveDoc(ddoc, {
           success: function(resp) {
-            alert('design doc saved');
+            location.href = 'admin#models';
           }
         });
       });
