@@ -1,22 +1,22 @@
-<nav id="modelList">
-  <h1>models</h1>
+<nav class="edit">
+  <h1><a href="#models">models</a></h1>
   <ul>
-    {for name in names}
-    <li><a href="#models?{name}">{name}</a></li>
+    {for model in models}
+    <li><a href="{model.link}">{model.name}</a></li>
     {/for}
   </ul>
 </nav>
-<section id="edit">
+<section class="edit">
   <form id="modelForm">
     <div class="submit">
       <input name="save" type="submit" value="save">
       <input name="delete" type="button" value="delete">
     </div>
     <div>
-      <input type="text" id="name" name="name" value="{selected}"> <label for="name">&lt;- name</label>&nbsp;&nbsp;<label for="body">v- body</label>
+      <input type="text" id="name" name="name" value="{thisModel.name}">
     </div>
     <div>
-      <textarea cols="80" rows="40" id="body" name="body">{model}</textarea>
+      <textarea cols="80" rows="40" id="body" name="body">{thisModel.body}</textarea>
     </div>
     <div>
       <input name="save" type="submit" value="save">

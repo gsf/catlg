@@ -27,20 +27,22 @@ $(function() {
     var query = getQuery(hash);
     if (hash.indexOf('models') == 0) {
       var names = Object.keys(ddoc.models).sort();
-      var view = {names: names};
+      var models = [];
+      for (var i=0, l=names.length; i<l; i++) {
+        models.push({name: names[i], link: '#models?'+encodeURIComponent(names[i])});
+      }
+      var view = {models: models};
       var model;
       if (query) {
-        model = ddoc.models[query];
+        var name = decodeURIComponent(query);
+        model = ddoc.models[name];
       }
       if (model) {
         var modelStr = JSON.stringify(model, null, '  ');
-        view.selected = query;
-        view.model = modelStr;
-        view.lines = modelStr.split('\n').length;
+        view.thisModel = {name: name, body: modelStr};
         $('#content').append(whiskers.render(ddoc.templates.admin.model, view));
       } else {
-        view.selected = 'new';
-        view.model = '{\n  "fields": [\n    {\n      "required": true,\n      "type": "string",\n      "name": "title"\n    },\n    {\n      "required": false,\n      "type": "string",\n      "name": "author"\n    }\n  ]\n}';
+        view.thisModel = {name: 'new', body: '{\n  "fields": [\n    {\n      "required": true,\n      "type": "string",\n      "name": "some field"\n    },\n    {\n      "required": false,\n      "type": "string",\n      "name": "another field"\n    }\n  ]\n}'};
         $('#content').append(whiskers.render(ddoc.templates.admin.model, view));
       }
       $('#modelForm').submit(function() {
@@ -48,7 +50,7 @@ $(function() {
         ddoc.models[name] = JSON.parse($('textarea').val());
         catlg.db.saveDoc(ddoc, {
           success: function(resp) {
-            location.href = 'admin#models?'+name;
+            location.href = 'admin#models?'+encodeURIComponent(name);
           }
         });
         return false;
